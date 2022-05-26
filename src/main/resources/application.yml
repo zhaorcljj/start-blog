@@ -11,7 +11,7 @@ spring:
     #type: com.zaxxer.hikari.util.DriverDataSource
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
   #thymeleaf:
   #cache: false
@@ -19,3 +19,8 @@ spring:
 thymeleaf:
   prefix:
     classpath: /templates/
+url:
+  rest:
+    prefix:
+        v1:/api
+allowed.origin.path: http://127.0.0.1:8088
