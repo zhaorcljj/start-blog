@@ -1,24 +1,29 @@
 package com.startblog.user.bean;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.startblog.user.entity.UserEntity;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author zhaorc
  * @version 1.0, 2022年04月30日
  */
 
-//@Component(value = "user")
+@Component(value = "userBean")
 public class User implements Serializable {
     private static final long serialVersionUID = 6418003259714869839L;
     private String account;
-    private String name;
     private String passWord;
-    private String phone;
-    private String mail;
-    private String birthday;
-    
+    private String name;
+    private String Email;
+    private String Telephone;
+    private Long lastLoginTime;
+    private JSONObject props;
     
     public String getAccount() {
         return account;
@@ -26,38 +31,6 @@ public class User implements Serializable {
     
     public void setAccount(String account) {
         this.account = account;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getPhone() {
-        return phone;
-    }
-    
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    
-    public String getMail() {
-        return mail;
-    }
-    
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-    
-    public String getBirthday() {
-        return birthday;
-    }
-    
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
     }
     
     public String getPassWord() {
@@ -68,18 +41,70 @@ public class User implements Serializable {
         this.passWord = passWord;
     }
     
-    public User(String account, String name, String phone, String mail, String birthday) {
-        this.account = account;
-        this.name = name;
-        this.phone = phone;
-        this.mail = mail;
-        this.birthday = birthday;
+    public String getName() {
+        return name;
     }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getEmail() {
+        return Email;
+    }
+    
+    public void setEmail(String email) {
+        Email = email;
+    }
+    
+    public String getTelephone() {
+        return Telephone;
+    }
+    
+    public void setTelephone(String telephone) {
+        Telephone = telephone;
+    }
+    
+    public Long getLastLoginTime() {
+        return lastLoginTime;
+    }
+    
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+    
+    public JSONObject getProps() {
+        return props;
+    }
+    
+    public void setProps(JSONObject props) {
+        this.props = props;
+    }
+    
+    public User() {
+    }
+    
+    public User(String account, String passWord, String name,
+                String email, String telephone, Long lastLoginTime,
+                JSONObject props) {
+        this.account = account;
+        this.passWord = passWord;
+        this.name = name;
+        this.Email = email;
+        this.Telephone = telephone;
+        this.lastLoginTime = lastLoginTime;
+        this.props = props;
+    }
+    
     public User(UserEntity entity){
         this.account = entity.getAccount();
         this.name = entity.getName();
-        this.phone = entity.getUserDetailEntity().getPhone();
-        this.mail = entity.getUserDetailEntity().getMail();
-        this.birthday = entity.getUserDetailEntity().getBirthday();
+        this.Email = entity.getEmail();
+        this.Telephone = entity.getTelephone();
+        this.lastLoginTime = entity.getLastLoginTime();
+        String detail = entity.getUserDetailEntity().getDetail();
+        if(StringUtils.isNotBlank(detail)){
+            this.props = JSON.parseObject(detail);
+        }
     }
 }

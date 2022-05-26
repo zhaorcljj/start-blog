@@ -1,6 +1,6 @@
 package com.startblog.user.entity;
 
-import com.startblog.entity.BaseEntity;
+import com.startblog.common.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,17 +26,65 @@ public class UserEntity extends BaseEntity implements Serializable {
             allocationSize = 1)
     @Column(name = "ID", nullable = false)
     private Long id;
-    @Column(name = "ACCOUNT", nullable = false, updatable = false)
+    /**
+     * 账号
+     */
+    @Column(name = "ACCOUNT", nullable = false, length = 50)
     private String account;
-    @Column(name = "NAME", nullable = false)
-    private String name;
-    @Column(name = "PASS_WORD", nullable = false)
+    /**
+     * 密码
+     */
+    @Column(name = "PASS_WORD", nullable = false, length = 255)
     private String passWord;
+    /**
+     * 姓名
+     */
+    @Column(name = "NAME", nullable = false, length = 50)
+    private String name;
+    /**
+     * 邮箱
+     */
+    @Column(name = "EMAIL", length = 50)
+    private String Email;
+    /**
+     * 电话
+     */
+    @Column(name = "TELEPHONE", length = 50)
+    private String Telephone;
+
+    /**
+     * 状态
+     */
     @Column(name = "STATUS")
     private int status;
+    /**
+     * 最后登录时间
+     */
+    @Column(name = "LAST_LOGIN_TIME")
+    private Long lastLoginTime;
     
-    @OneToOne(mappedBy = "user",cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "user",cascade = {CascadeType.ALL},
+    targetEntity = UserDetailEntity.class)
     private UserDetailEntity userDetailEntity;
+    
+    public UserEntity(Long id, String account, String passWord,
+                      String name, String email, String telephone,
+                      int status, Long lastLoginTime,
+                      UserDetailEntity userDetailEntity) {
+        super();
+        this.id = id;
+        this.account = account;
+        this.passWord = passWord;
+        this.name = name;
+        this.Email = email;
+        this.Telephone = telephone;
+        this.status = status;
+        this.lastLoginTime = lastLoginTime;
+        this.userDetailEntity = userDetailEntity;
+    }
+    
+    public UserEntity() {
+    }
     
     public Long getId() {
         return id;
@@ -54,6 +102,14 @@ public class UserEntity extends BaseEntity implements Serializable {
         this.account = account;
     }
     
+    public String getPassWord() {
+        return passWord;
+    }
+    
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+    
     public String getName() {
         return name;
     }
@@ -62,12 +118,20 @@ public class UserEntity extends BaseEntity implements Serializable {
         this.name = name;
     }
     
-    public String getPassWord() {
-        return passWord;
+    public String getEmail() {
+        return Email;
     }
     
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setEmail(String email) {
+        Email = email;
+    }
+    
+    public String getTelephone() {
+        return Telephone;
+    }
+    
+    public void setTelephone(String telephone) {
+        Telephone = telephone;
     }
     
     public int getStatus() {
@@ -78,24 +142,19 @@ public class UserEntity extends BaseEntity implements Serializable {
         this.status = status;
     }
     
+    public Long getLastLoginTime() {
+        return lastLoginTime;
+    }
+    
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+    
     public UserDetailEntity getUserDetailEntity() {
         return userDetailEntity;
     }
     
     public void setUserDetailEntity(UserDetailEntity userDetailEntity) {
-        this.userDetailEntity = userDetailEntity;
-    }
-    
-    public UserEntity() {
-        super();
-    }
-    
-    public UserEntity(Long id, String account, String name, String passWord, int status, UserDetailEntity userDetailEntity) {
-        this.id = id;
-        this.account = account;
-        this.name = name;
-        this.passWord = passWord;
-        this.status = status;
         this.userDetailEntity = userDetailEntity;
     }
 }

@@ -16,21 +16,26 @@ public class UserDetailEntity implements Serializable {
             valueColumnName = "GEN_VAL",
             initialValue = 1,
             allocationSize = 1)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
-    
-    @Column(name = "phone")
-    private String phone;
-    
-    @Column(name = "MAIL")
-    private String mail;
-    
-    @Column(name = "BIRTHDAY")
-    private String birthday;
+    /**
+     * 详细信息
+     */
+    @Column(name = "DETAIL", length = 2000)
+    private String Detail;
     
     @OneToOne(optional = false)
     @PrimaryKeyJoinColumn
     private UserEntity user;
+    
+    public UserDetailEntity() {
+    }
+    
+    public UserDetailEntity(Long id, String detail, UserEntity user) {
+        this.id = id;
+        Detail = detail;
+        this.user = user;
+    }
     
     public Long getId() {
         return id;
@@ -40,28 +45,12 @@ public class UserDetailEntity implements Serializable {
         this.id = id;
     }
     
-    public String getPhone() {
-        return phone;
+    public String getDetail() {
+        return Detail;
     }
     
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    
-    public String getMail() {
-        return mail;
-    }
-    
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-    
-    public String getBirthday() {
-        return birthday;
-    }
-    
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setDetail(String detail) {
+        Detail = detail;
     }
     
     public UserEntity getUser() {
@@ -70,17 +59,5 @@ public class UserDetailEntity implements Serializable {
     
     public void setUser(UserEntity user) {
         this.user = user;
-    }
-    
-    public UserDetailEntity(Long id, String phone, String mail, String birthday, UserEntity user) {
-        this.id = id;
-        this.phone = phone;
-        this.mail = mail;
-        this.birthday = birthday;
-        this.user = user;
-    }
-    
-    public UserDetailEntity() {
-        super();
     }
 }

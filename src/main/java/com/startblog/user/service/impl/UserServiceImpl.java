@@ -4,13 +4,11 @@ import com.startblog.user.bean.User;
 import com.startblog.user.dao.UserEntityDao;
 import com.startblog.user.entity.UserDetailEntity;
 import com.startblog.user.entity.UserEntity;
+import com.startblog.user.enums.UserStatus;
 import com.startblog.user.service.UserService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.Date;
 
 /**
  * @author zhaorc
@@ -70,18 +68,17 @@ public class UserServiceImpl implements UserService, InitializingBean {
     @Override
     public User createUser(User user) {
         UserEntity entity = new UserEntity();
-        entity.setCreator("admin");
-        entity.setCreationTime(new Date());
-        entity.setLastModifyTime(new Date());
+        entity.setCreatorAccount(user.getAccount());
+        entity.setCreationTime(System.currentTimeMillis());
+        entity.setLastModifyTime(System.currentTimeMillis());
         entity.setDeleted(0);
         entity.setAccount(user.getAccount());
         entity.setName(user.getName());
         entity.setPassWord(user.getPassWord());
-        entity.setStatus(1);
+        entity.setStatus(UserStatus.NORMAL.getIndex());
+        entity.setEmail(user.getEmail());
+        entity.setTelephone(user.getTelephone());
         UserDetailEntity userDetail = new UserDetailEntity();
-        userDetail.setPhone(user.getPhone());
-        userDetail.setMail(user.getMail());
-        userDetail.setBirthday(user.getBirthday());
         entity.setUserDetailEntity(userDetail);
         userDao.saveAndFlush(entity);
         return null;
