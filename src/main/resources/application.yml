@@ -6,7 +6,8 @@ spring:
   datasource:
     username: startblog
     password: startblog
-    url: jdbc:mysql://192.168.4.5:3306/startblog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    #url: jdbc:mysql://192.168.4.5:3306/startblog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/startblog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     #type: com.zaxxer.hikari.util.DriverDataSource
   jpa:
@@ -16,6 +17,14 @@ spring:
   #thymeleaf:
   #cache: false
     #encoding: utf-8
+  devtools:
+    restart:
+      # 开启热部署（更改文件后，自动重启）
+      enabled: true
+      ## 设置哪些资源变动后不触发热部署，会覆盖默认的exclude内容（资源不会触发重启，但会触发实时重新加载）
+      # exclude: WEB-INF/**,static/**
+      ## 监控额外的路径（优先于exclude）
+      # additional-paths: src/main/java
 thymeleaf:
   prefix:
     classpath: /templates/
@@ -23,4 +32,6 @@ url:
   rest:
     prefix:
         v1:/api
-allowed.origin.path: http://127.0.0.1:8088
+allowed:
+  origin:
+    path: http://127.0.0.1:8088
