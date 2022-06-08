@@ -1,18 +1,23 @@
-package com.startblog.user.entity;
+package com.startblog.sys.user.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "USER_DETAIL")
-public class UserDetailEntity implements Serializable {
+/**
+ * 用户扩展类
+ * @author zhaorc
+ * @version 1.0, 2022年04月23日
+ */
+@Entity(name = "com.startblog.sys.user.entity.UserDateEntity")
+@Table(name = "USER_DATE", schema = "startblog")
+public class UserDateEntity implements Serializable {
     private static final long serialVersionUID = 8080002497344782661L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "userDetailEntityGenerator")
-    @TableGenerator(name = "userDetailEntityGenerator",
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "userDateEntityGenerator")
+    @TableGenerator(name = "userDateEntityGenerator",
             table = "TABLE_ID_GEN",
             pkColumnName = "GEN_NAME",
-            pkColumnValue = "USER_DETAIL",
+            pkColumnValue = "USER_DATE",
             valueColumnName = "GEN_VAL",
             initialValue = 1,
             allocationSize = 1)
@@ -28,10 +33,10 @@ public class UserDetailEntity implements Serializable {
     @PrimaryKeyJoinColumn
     private UserEntity user;
     
-    public UserDetailEntity() {
+    public UserDateEntity() {
     }
     
-    public UserDetailEntity(Long id, String detail, UserEntity user) {
+    public UserDateEntity(Long id, String detail, UserEntity user) {
         this.id = id;
         Detail = detail;
         this.user = user;
