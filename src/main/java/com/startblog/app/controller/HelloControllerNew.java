@@ -1,4 +1,4 @@
-package com.startblog.controller;
+package com.startblog.app.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
