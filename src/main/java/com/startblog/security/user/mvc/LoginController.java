@@ -1,6 +1,7 @@
-package com.startblog.mvc;
+package com.startblog.security.user.mvc;
 
-import com.startblog.user.service.UserService;
+import com.startblog.sys.user.bean.User;
+import com.startblog.security.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +15,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/usermanage")
 public class LoginController {
     @Autowired
-    @Qualifier("userService")
-    private UserService userService;
+    @Qualifier("userInfoService")
+    private UserInfoService userInfoService;
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(
             @RequestParam(value = "account", name = "账号", required = true) String account,
             @RequestParam(value = "passWord", name = "密码", required = true) String passWord){
-        com.startblog.security.user.User user = new com.startblog.security.user.User();
+        User user = new User();
         user.setAccount(account);
         user.setPassWord(passWord);
-        boolean flag = userService.login(user);
-        return flag;
+        
+        return false;
     }
     
     @RequestMapping(value ="/register", method = RequestMethod.POST)
